@@ -1,4 +1,5 @@
 const pool = require('../DB/DBConnect');
+
 async function getUsers(req, res) {
     try {
         const query = `
@@ -55,7 +56,6 @@ async function getUsers(req, res) {
         res.status(500).json({ error: 'Error al obtener usuarios' });
     }
 }
-
 async function addUser(req, res) {
     const { name, email, phone } = req.body;
 

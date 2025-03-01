@@ -1,12 +1,17 @@
 const mysql = require("mysql2/promise");
+const { seedDatabase } = require("./seed");
 
 const pool = mysql.createPool({
     connectionLimit: 10, 
-    host: 'localhost', 
+    host: 'shortline.proxy.rlwy.net',  
+    port: 18255, 
     user: 'root',
-    database: 'prueba',
-    nestTables: false, 
+    password: 'OeQonowxsPbMgVnyTSrUCOwFUmNwXnee', 
+    database: 'railway',
+    waitForConnections: true,
+    queueLimit: 0
 });
+
 (async () => {
     try {
         const connection = await pool.getConnection();
@@ -57,6 +62,7 @@ const pool = mysql.createPool({
         console.log('✅ Tabla "activity_months" verificada/creada');
 
         connection.release();
+        seedDatabase()
     } catch (err) {
         console.error('❌ Error de conexión o creación de tablas:', err);
     }
